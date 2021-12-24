@@ -1,10 +1,13 @@
+# Import
+import re
+
 # Ouverture du fichier
-filePath = "./resource/testing.txt"
+filePath = "./resource/transact_log.txt"
 readModeFile = 'r'
 f = open(filePath, readModeFile)
 numberOfClients = 0
 # initialisation d'un dictionnaire (jours)
-daysDict= {
+daysDict = {
     "Monday": numberOfClients,
     "Tuesday": numberOfClients,
     "Wednesday": numberOfClients,
@@ -14,15 +17,24 @@ daysDict= {
 }
 
 # les jours les plus lucratifs entre 2014 - 2020
-theDay = ""
-countMonday = 0
+keyDay = ""
 countLine = 0
-for l in f:
+valueCountProduct = 0
+charBegins = 0
+charEnd = 0
+for line in f:
     countLine += 1
     if countLine <= 2:
         continue
-    print(l)
+    # Définir le jour où il y a eu le plus de ventes entre 2014 - 2020
+    if re.match("^[Day : ]", line):
+        charBegins = line.index(":") + 1
+        charEnd = line.index("-")
+        keyDay = line[charBegins:charEnd]
+    else:
+        valueCountProduct = line.count('p')
+        daysDict[keyDay] = daysDict.get(keyDay) + valueCountProduct
 
+print(daysDict)
 
-
-
+# 
