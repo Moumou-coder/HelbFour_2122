@@ -60,4 +60,23 @@ print(yearsDict)
 # graph Histogram
 print(daysDict)
 
+################################################# Réponse Q 2 #############################################
+from itertools import combinations
+
+# Ouverture du fichier
+filePath = "./resource/test.txt"
+readModeFile = 'r'
+f = open(filePath, readModeFile)
+
+for lineOfProduct in f:
+    if lineOfProduct.startswith("["):
+        listProduct = eval(lineOfProduct)
+        listComb = combinations(listProduct, 2)
+        print(list(listComb))
+
+
+# refaire l'exo du cours
+
+
+
 
