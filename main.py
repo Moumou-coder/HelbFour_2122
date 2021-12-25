@@ -55,10 +55,8 @@ for line in f:
         valueCountProduct = line.count('p')
         daysDict[keyDay] = daysDict.get(keyDay) + valueCountProduct
 
-# gaph en nuage de points - évolution durant les années
-# todo: faire graph
-# print(yearsDict)
-# graph Histogram
+
+# Graphique des jours les plus rentables au niveau de la vente des produits
 print(daysDict)
 percentDays = 0
 totalProduct = daysDict["Monday"] + daysDict["Tuesday"] + daysDict["Wednesday"] + daysDict["Thursday"] + daysDict[
@@ -77,13 +75,17 @@ i = 0
 while i < 6:
     for x in daysPercentDict.keys():
         i += 1
-        daysPercentDict[x] = ((daysDict[x] / totalProduct) * 10000) - 1600
+        daysPercentDict[x] = ((daysDict[x] / totalProduct) * 1000) % 100
 
 for d in daysPercentDict.items():
-    print(d[0] + ':', end="")
     for i in range(int(d[1])):
-        print('▪', end="")
+        print('🟥', end="")
+    print(" :" + d[0], end="")
     print(" ")
+
+print()
+# Graphique représentant l'évolution de l'entreprise au niveau entre 2014-2020
+print(yearsDict)
 
 ################################################# Réponse Q 2 #############################################
 from itertools import combinations
