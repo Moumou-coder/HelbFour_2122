@@ -56,27 +56,57 @@ for line in f:
         daysDict[keyDay] = daysDict.get(keyDay) + valueCountProduct
 
 # gaph en nuage de points - évolution durant les années
-print(yearsDict)
+# todo: faire graph
+# print(yearsDict)
 # graph Histogram
 print(daysDict)
+percentDays = 0
+totalProduct = daysDict["Monday"] + daysDict["Tuesday"] + daysDict["Wednesday"] + daysDict["Thursday"] + daysDict[
+    "Friday"] + daysDict["Saturday"]
+
+daysPercentDict = {
+    "Monday": percentDays,
+    "Tuesday": percentDays,
+    "Wednesday": percentDays,
+    "Thursday": percentDays,
+    "Friday": percentDays,
+    "Saturday": percentDays,
+}
+
+i = 0
+while i < 6:
+    for x in daysPercentDict.keys():
+        i += 1
+        daysPercentDict[x] = ((daysDict[x] / totalProduct) * 10000) - 1600
+
+for d in daysPercentDict.items():
+    print(d[0] + ':', end="")
+    for i in range(int(d[1])):
+        print('▪', end="")
+    print(" ")
 
 ################################################# Réponse Q 2 #############################################
 from itertools import combinations
 
 # Ouverture du fichier
-filePath = "./resource/test.txt"
+filePath = "./resource/Tester.txt"
 readModeFile = 'r'
 f = open(filePath, readModeFile)
+
+productsCombVal = 1
+productsCombDict = {
+}
 
 for lineOfProduct in f:
     if lineOfProduct.startswith("["):
         listProduct = eval(lineOfProduct)
         listComb = combinations(listProduct, 2)
-        print(list(listComb))
+        for i in list(listComb):
+            sortedTupleKey = tuple(sorted(i))
+            if sortedTupleKey not in productsCombDict:
+                productsCombDict.update({sortedTupleKey: productsCombVal})
+            else:
+                productsCombDict[sortedTupleKey] = productsCombDict.get(sortedTupleKey) + 1
 
-
-# refaire l'exo du cours
-
-
-
-
+# todo: regarder le cours - support - confidence - lift
+# print(productsCombDict)
